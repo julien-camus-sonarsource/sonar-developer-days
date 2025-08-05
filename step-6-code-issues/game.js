@@ -75,6 +75,18 @@ function gameOver() {
     // BUG 6: No debugging information when game ends
 }
 
+function restart() {
+    gameRunning = true;
+    score = 0;
+    whale.y = 300; // BUG: Magic number
+    whale.velocityY = 0;
+    whale.squeezeScale = 1.0;
+    whale.targetSqueezeScale = 1.0;
+    whale.rotation = 0;
+    obstacles = [];
+    createObstacle();
+}
+
 function jump() {
     if (gameRunning) {
         whale.velocityY = -10; // BUG 7: Magic number -10
@@ -167,7 +179,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Refresh to play again', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -176,6 +188,8 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        restart();
     }
 });
 

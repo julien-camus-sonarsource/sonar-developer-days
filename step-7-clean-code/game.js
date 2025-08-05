@@ -94,6 +94,20 @@ function gameOver() {
     stopGameLoop(); // FIXED: Clean up resources
 }
 
+function restart() {
+    console.log('Restarting game'); // FIXED: Add debugging
+    gameRunning = true;
+    score = 0;
+    whale.y = 300; // Could be improved with a constant
+    whale.velocityY = 0;
+    whale.squeezeScale = 1.0;
+    whale.targetSqueezeScale = 1.0;
+    whale.rotation = 0;
+    obstacles = [];
+    createObstacle();
+    startGameLoop();
+}
+
 function jump() {
     if (gameRunning) {
         whale.velocityY = JUMP_POWER; // FIXED: Use constant
@@ -206,7 +220,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Refresh to play again', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -215,6 +229,8 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        restart();
     } else if (event.code === 'KeyD') {
         // Toggle debug mode to see collision boundaries
         debugMode = !debugMode;

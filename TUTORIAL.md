@@ -387,7 +387,16 @@ function isColliding(rect1, rect2) {
 // Function to end the game
 function gameOver() {
     gameRunning = false;
-    alert('Game Over! Your score: ' + score + '. Refresh to play again.');
+}
+
+// Function to restart the game
+function restart() {
+    gameRunning = true;
+    score = 0;
+    player.y = 300;
+    player.velocityY = 0;
+    obstacles = [];
+    createObstacle();
 }
 
 // Function to make player jump
@@ -462,6 +471,8 @@ function draw() {
         ctx.fillStyle = 'red';
         ctx.font = '36px Arial';
         ctx.fillText('GAME OVER', canvas.width/2 - 100, canvas.height/2);
+        ctx.font = '18px Arial';
+        ctx.fillText('Press R to restart', canvas.width/2 - 70, canvas.height/2 + 40);
     }
 }
 
@@ -470,6 +481,8 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        restart();
     }
 });
 
@@ -657,6 +670,19 @@ function gameOver() {
     gameRunning = false;
 }
 
+// Restart function
+function restart() {
+    gameRunning = true;
+    score = 0;
+    whale.y = 300;
+    whale.velocityY = 0;
+    whale.scale = 1.0;
+    whale.targetScale = 1.0;
+    whale.rotation = 0;
+    obstacles = [];
+    createObstacle();
+}
+
 // Jump function with animation
 function jump() {
     if (gameRunning) {
@@ -763,7 +789,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Refresh to play again', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -773,6 +799,8 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        restart();
     }
 });
 
@@ -794,7 +822,7 @@ draw();
 Add this before the closing `</div>` in your HTML:
 
 ```html
-        <div class="controls">Press SPACE or click to flap!</div>
+        <div class="controls">Press SPACE or click to flap! Press R to restart when game over.</div>
 ```
 
 ### 🧪 Test It:
@@ -996,7 +1024,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Refresh to play again', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -1242,7 +1270,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Refresh to play again', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
