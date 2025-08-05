@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 6 - Code with Issues (SonarLint Demo)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #001122 0%, #003366 30%, #004477 60%, #0066AA 100%);
+            font-family: Arial, sans-serif;
+        }
+        
+        .game-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        canvas {
+            border: 3px solid white;
+            border-radius: 8px;
+            background: linear-gradient(to bottom, #87CEEB 0%, #4682B4 40%, #2F4F4F 70%, #1e3a5f 100%);
+        }
+        
+        .info {
+            color: white;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .controls {
+            color: #ffeb3b;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        .warning {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 15px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🐋 Step 6: Code Issues Demo 🐋</h1>
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        <div class="controls">Press SPACE or click to flap your whale!</div>
+        <div class="warning">
+            ⚠️ <strong>This code has intentional issues!</strong><br>
+            Open game.js in VS Code and check the Problems panel to see SonarLint warnings.
+        </div>
+        <div class="info">
+            <p>✅ Game works, but the code has problems that SonarLint will detect:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li>Memory leaks (unclosed intervals)</li>
+                <li>Magic numbers</li>
+                <li>Deprecated var declarations</li>
+                <li>Missing debug logging</li>
+                <li>Code duplication</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html>
