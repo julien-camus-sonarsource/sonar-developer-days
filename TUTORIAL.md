@@ -16,20 +16,37 @@ Welcome! Today you'll learn how to create a fun browser game from scratch. Don't
 
 ---
 
-## 🛠️ Setup (5 minutes)
+## 🛠️ Pre-Workshop Setup (10 minutes)
 
 ### What You Need:
 1. **Visual Studio Code** (VS Code) - A free code editor
-2. **SonarLint Extension** - Helps write better code 
-3. **Web Browser** - Chrome, Firefox, Safari, or Edge
-4. **Basic text editing skills** - Copy, paste, save files
+2. **Web Browser** - Chrome, Firefox, Safari, or Edge
+3. **Basic text editing skills** - Copy, paste, save files
 
-### Install SonarLint:
+### VS Code Extensions Setup:
+
+#### 1. Install HTML Preview Extension:
 1. Open VS Code
 2. Click Extensions icon (4 squares) on the left sidebar
-3. Search for "SonarLint"
-4. Install the official SonarSource extension
-5. Restart VS Code
+3. Search for "HTML Preview"
+4. Install the extension by Thomas Haakon Townsend
+5. This lets you preview HTML files directly in VS Code
+
+#### 2. Install SonarQube for IDE Extension:
+1. In VS Code Extensions
+2. Search for "SonarQube for IDE" 
+3. Install the official SonarSource extension
+4. This will help us write better, cleaner code later in the workshop
+
+#### 3. Restart VS Code
+Close and reopen VS Code to activate the extensions
+
+### How to Use HTML Preview:
+Once we create HTML files, you can:
+1. **Right-click** on any `index.html` file
+2. Select **"Preview"** from the context menu
+3. This opens a **live preview** in a right-side panel
+4. **Split screen**: Code on left, preview on right - perfect for development!
 
 ---
 
@@ -93,9 +110,17 @@ Create a new file called `index.html` and type this:
 ```
 
 ### 🧪 Test It:
+**Option 1 - VS Code HTML Preview (Recommended):**
+1. Save the file (`Ctrl+S` or `Cmd+S`)
+2. **Right-click** on `index.html` in VS Code
+3. Select **"Preview"** - this opens a live preview panel
+4. Arrange windows: code on left, preview on right
+
+**Option 2 - Browser:**
 1. Save the file
 2. Double-click `index.html` to open in your browser
-3. You should see a blue rectangle with a title!
+
+You should see a blue rectangle with a title!
 
 ### 🤔 What Just Happened?
 
