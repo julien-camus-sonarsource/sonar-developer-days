@@ -197,9 +197,11 @@ Add this line just before `</body>` in your `index.html`:
 ```
 
 ### 🧪 Test It:
-1. Save both files
-2. Refresh your browser
-3. You should see a blue square moving from left to right!
+1. **Save both files** (`Ctrl+S` or `Cmd+S`)
+2. **Refresh your HTML Preview** (click the refresh icon) or browser
+3. You should see **a blue square moving from left to right**!
+
+**💡 HTML Preview Tip**: The preview updates automatically when you save files - no need to manually refresh!
 
 ### 🤔 What Just Happened?
 
@@ -1014,18 +1016,31 @@ createObstacle();
 ### 🧪 Test It:
 The game should still work, but let's see what SonarLint finds!
 
-### Using SonarLint to Find Issues:
+### Using SonarQube for IDE to Find Issues:
 
-1. **Open VS Code**
-2. **Open your `game.js` file**
-3. **Look at the Problems Panel**:
-   - Go to View → Problems (or Ctrl+Shift+M)
-   - You should see red and yellow warnings
+Remember the **SonarQube for IDE extension** we installed at the beginning? Now it's time to see it in action!
 
-4. **Understanding the Issues**:
-   - **Red squiggly lines**: Serious problems
-   - **Yellow squiggly lines**: Code smells (could be better)
-   - **Hover over lines**: See detailed explanations
+1. **Open VS Code** with your project
+2. **Open your `game.js` file** in the editor
+3. **Look for Visual Indicators**:
+   - **Red squiggly underlines**: Serious problems (bugs, security issues)
+   - **Yellow squiggly underlines**: Code smells (could be better)
+   - **Numbers in circles**: Issue count in the scrollbar
+
+4. **Open the Problems Panel**:
+   - Go to **View → Problems** (or press `Ctrl+Shift+M` / `Cmd+Shift+M`)
+   - You should see a list of all detected issues
+   - Each issue shows: file, line number, and description
+
+5. **Understand the Issues**:
+   - **Hover over squiggly lines**: See detailed explanations
+   - **Click on problems**: Jump directly to the issue in your code
+   - **Rule codes** (like S2095, S4334): These are SonarQube's standardized issue identifiers
+
+6. **Real-time Analysis**:
+   - SonarQube for IDE analyzes your code **as you type**
+   - No need to run separate tools or wait for builds
+   - Issues appear and disappear instantly as you fix them
 
 ### Common Issues SonarLint Will Find:
 
@@ -1255,9 +1270,11 @@ Change the script line in your `index.html`:
 ```
 
 ### 🧪 Test the Fixed Version:
-1. Save and refresh
-2. Check the Problems panel - should show 0 issues!
-3. Open Developer Console (F12) and play - you'll see debug messages when you crash
+1. **Save** your files (`Ctrl+S` or `Cmd+S`)
+2. **Refresh** your HTML Preview or browser
+3. **Check the Problems panel** - should show **0 issues**! 🎉
+4. **Test the game** - it should work exactly the same but with better code
+5. **Open Developer Console** (F12 in browser) and play - you'll see debug messages when you crash
 
 ### 🤔 What We Fixed:
 
