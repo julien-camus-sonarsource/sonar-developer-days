@@ -8,8 +8,8 @@ const seaweedImg = new Image();
 let imagesLoaded = 0;
 
 // Load SVG files
-whaleImg.src = '../assets/sonar-whale-light-bg.svg';
-seaweedImg.src = '../assets/seaweed.svg';
+whaleImg.src = 'assets/sonar-whale-light-bg.svg';
+seaweedImg.src = 'assets/seaweed.svg';
 
 whaleImg.onload = () => { imagesLoaded++; };
 seaweedImg.onload = () => { imagesLoaded++; };
@@ -62,7 +62,7 @@ function createObstacle() {
 // Collision detection with forgiving hitboxes
 function isColliding(rect1, rect2) {
     // Make hitboxes more forgiving by reducing collision area
-    const margin = 5; // pixels of forgiveness
+    const margin = 8; // pixels of forgiveness for better gameplay // pixels of forgiveness
     return rect1.x + margin < rect2.x + rect2.width &&
            rect1.x + rect1.width - margin > rect2.x &&
            rect1.y + margin < rect2.y + rect2.height &&
@@ -112,7 +112,7 @@ function update() {
     whale.rotation = Math.max(-30, Math.min(30, whale.velocityY * 3));
     
     // Check boundaries with forgiving margins
-    const boundaryMargin = 3;
+    const boundaryMargin = 5;
     if (whale.y > canvas.height - whale.height + boundaryMargin || whale.y < -boundaryMargin) {
         gameOver();
         return;
