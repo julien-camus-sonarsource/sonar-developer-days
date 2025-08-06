@@ -27,50 +27,51 @@ This repository uses **Git branches as checkpoints** for the Flappy Sonar Whale 
 - **What it shows**: HTML structure with styled canvas
 - **Key concepts**: HTML, CSS, canvas element, mobile viewport
 - **Working features**: Empty game area with ocean styling
-- **Files**: `index.html`, tutorial files, assets/
+- **Files**: `index.html` (root), tutorial files, assets/, step-1-basic-webpage/ (reference)
 
 ### **🎯 step-2: JavaScript Basics**  
 - **What it shows**: Blue square moving left to right
 - **Key concepts**: JavaScript basics, game loop, canvas drawing
 - **Working features**: Animated rectangle with wraparound
-- **Files**: All step-1 files + `step-2-moving-square/`
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 
 ### **🎯 step-3: Physics Simulation**
 - **What it shows**: Square affected by gravity that can jump
 - **Key concepts**: Physics simulation, user input, event listeners
 - **Working features**: Gravity, jumping with spacebar/click/touch, boundaries
-- **Files**: All previous steps + `step-3-gravity-jumping/`
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 
 ### **🎯 step-4: Game Mechanics**
 - **What it shows**: Full playable game with obstacles
 - **Key concepts**: Arrays, collision detection, game states, scoring
 - **Working features**: Complete Flappy Bird mechanics with for-of loops
-- **Files**: All previous steps + `step-4-obstacles-collision/`
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 
 ### **🎯 step-5: Beautiful Graphics**
 - **What it shows**: Polished game with whale graphics and ocean theme
 - **Key concepts**: SVG assets, animations, canvas transformations, mobile support
 - **Working features**: Whale sprite, seaweed obstacles, squeeze animation, touch controls
-- **Files**: All previous steps + `step-5-beautiful-graphics/` with forgiving collision detection
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 
 ### **🎯 step-6: Code Issues Demo**
 - **What it shows**: Same beautiful game but with intentional code problems
 - **Key concepts**: Code smells, SonarQube for IDE integration, issue identification
 - **Working features**: Game works but has 6+ real SonarQube issues (S3776, S107, S1854, S1481, S3504, S4138)
-- **Files**: All previous steps + `step-6-code-issues/` with mobile support
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 - **Purpose**: For participants to practice finding and fixing real issues
 
 ### **🎯 step-7: Clean Code**
 - **What it shows**: Professional-quality code with all issues fixed
 - **Key concepts**: Clean code principles, best practices, maintainability
 - **Working features**: Same game + debug mode (press D), mobile support, proper resource management
-- **Files**: All previous steps + `step-7-clean-code/`
+- **Files**: `index.html` + `game.js` (root), previous steps in subfolders
 - **Bonus**: Press 'D' to see collision boundaries for debugging
 
-### **🏆 final: Complete Implementation**
-- **Purpose**: Instructor reference with all features
-- **Contains**: All step folders with complete tutorial progression
-- **Use case**: Quick demo, complete reference, instructor preparation
+### **🏆 final: Production-Ready Game**
+- **Purpose**: Complete, polished game ready for sharing
+- **Contains**: `index.html` + `game.js` (root), all tutorial steps in subfolders
+- **Features**: Production version without debug mode, clean UI, professional experience
+- **Use case**: Deploy immediately, share with friends, portfolio piece
 
 ---
 
@@ -156,7 +157,7 @@ git checkout step-7
 ### **Verification Steps:**
 1. **Switch branch**: `git checkout step-X`
 2. **Check files**: `ls -la` to see what's included
-3. **Test game**: Open appropriate `index.html` in browser
+3. **Test game**: Open `index.html` in browser (always in root now!)
 4. **Verify SonarQube**: Check Problems panel in VS Code (steps 6-7)
 
 ### **Expected Behavior by Branch:**
