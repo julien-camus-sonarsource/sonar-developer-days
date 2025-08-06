@@ -220,7 +220,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R or tap to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
