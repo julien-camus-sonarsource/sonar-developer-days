@@ -71,7 +71,7 @@ function createObstacle() {
 
 function isColliding(rect1, rect2) {
     // Make hitboxes more forgiving by reducing collision area
-    const margin = 8; // pixels of forgiveness for better gameplay // pixels of forgiveness
+    const margin = 8; // pixels of forgiveness for better gameplay
     return rect1.x + margin < rect2.x + rect2.width &&
            rect1.x + rect1.width - margin > rect2.x &&
            rect1.y + margin < rect2.y + rect2.height &&
