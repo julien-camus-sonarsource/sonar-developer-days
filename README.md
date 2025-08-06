@@ -188,7 +188,7 @@ git checkout -b my-work-from-step4  # Start fresh from step 4
 ### **Option 3: Quick Demo**
 ```bash
 git checkout final  # Complete implementation
-# Open step-7-clean-code/index.html in browser
+# Open index.html in browser (now in root for easy deployment!)
 ```
 
 ### **Need Help?**
@@ -207,12 +207,12 @@ The completed game features:
 - **Beautiful ocean environment** 
 - **Touch/mouse/keyboard** controls
 - **Score tracking** and game over states
-- **Debug mode** (press 'D') for development insight
+- **Production-ready** deployment
 
 **Try it yourself:** 
 ```bash
 git checkout final
-# Open step-7-clean-code/index.html in browser
+# Open index.html in browser (production-ready!)
 ```
 
 ---
