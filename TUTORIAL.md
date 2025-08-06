@@ -1459,7 +1459,7 @@ If you want a custom name for your game URL:
    - Run: `npm install --global surge`
 
 2. **Deploy Your Game**:
-   - Navigate to your `step-7-clean-code` folder
+   - Navigate to your project root folder (where `index.html` is located)
    - Run: `surge`
    - Choose a custom domain like: `your-name-whale-game.surge.sh`
    - **⚠️ Important**: Use a unique name like `john-whale-game-2024.surge.sh` so other workshop participants don't override your game!
