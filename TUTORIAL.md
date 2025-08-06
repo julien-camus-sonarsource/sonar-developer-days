@@ -1446,8 +1446,7 @@ Let's make your game available to the world instantly!
 
 3. **Get Your Live URL**:
    - Netlify will give you a URL like: `https://inspiring-cupcake-123456.netlify.app`
-   - **Important**: To see your game, add the path: `/step-7-clean-code/`
-   - **Your Game URL**: `https://your-url.netlify.app/step-7-clean-code/`
+   - **Your Game URL**: `https://your-url.netlify.app/`
 
 4. **Share Your Game**: Copy the full URL and share it with everyone!
 
