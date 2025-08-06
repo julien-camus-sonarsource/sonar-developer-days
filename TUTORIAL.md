@@ -810,13 +810,14 @@ draw();
 Add this before the closing `</div>` in your HTML:
 
 ```html
-        <div class="controls">Press SPACE or click to flap! Press R to restart when game over.</div>
+        <div class="controls">Press SPACE, click, or tap to flap! Tap to restart when game over.</div>
 ```
 
 ### 🧪 Test It:
 1. Save all files
 2. Refresh your browser
 3. Enjoy your beautiful whale game with ocean theme!
+4. **Mobile Test**: Open it on your phone - tap the screen to play!
 
 ### 🤔 What Just Happened?
 
@@ -825,6 +826,8 @@ Add this before the closing `</div>` in your HTML:
 - **Gradients**: CSS creates beautiful color transitions
 - **Image Loading**: We wait for images to load before using them
 - **Fallback Graphics**: Show rectangles if images don't load
+- **Mobile Support**: Touch events work seamlessly on phones and tablets
+- **Forgiving Hitboxes**: Collision detection accounts for transparent areas in SVG graphics
 
 ---
 
@@ -1350,7 +1353,8 @@ Change the script line in your `index.html`:
 2. **Refresh** your HTML Preview or browser
 3. **Check the Problems panel** - should show **0 issues**! 🎉
 4. **Test the game** - it should work exactly the same but with better code
-5. **Open Developer Console** (F12 in browser) and play - you'll see debug messages when you crash
+5. **Mobile Test** - Try it on your phone! The touch controls work perfectly
+6. **Open Developer Console** (F12 in browser) and play - you'll see debug messages when you crash
 
 ### 🤔 What We Fixed:
 
@@ -1373,6 +1377,7 @@ Change the script line in your `index.html`:
 - **Code Quality**: Following JavaScript best practices and modern standards
 - **Teamwork**: Clean, well-structured code that other developers can understand
 - **Professional Development**: These are the same issues you'll encounter in real projects
+- **User Experience**: Forgiving collision detection and mobile support make the game more enjoyable
 
 ---
 
@@ -1413,13 +1418,14 @@ If you want a custom name for your game URL:
 3. **Your Game URL**: `https://your-unique-name.surge.sh`
 
 ### 🧪 Test Your Published Game:
-1. Visit your game URL
+1. Visit your game URL on desktop
 2. Make sure the whale graphics load properly  
 3. Test the game controls (spacebar/click)
-4. Share the link with others!
+4. **Mobile Test**: Open the URL on your phone and test touch controls
+5. Share the link with friends - they can play it on any device!
 
 ### 🎉 Congratulations!
-You've created and published your first web game!
+You've created and published your first web game that works perfectly on both desktop and mobile devices!
 
 ---
 

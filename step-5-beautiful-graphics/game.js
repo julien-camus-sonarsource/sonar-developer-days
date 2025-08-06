@@ -59,12 +59,14 @@ function createObstacle() {
     });
 }
 
-// Collision detection
+// Collision detection with forgiving hitboxes
 function isColliding(rect1, rect2) {
-    return rect1.x < rect2.x + rect2.width &&
-           rect1.x + rect1.width > rect2.x &&
-           rect1.y < rect2.y + rect2.height &&
-           rect1.y + rect1.height > rect2.y;
+    // Make hitboxes more forgiving by reducing collision area
+    const margin = 5; // pixels of forgiveness
+    return rect1.x + margin < rect2.x + rect2.width &&
+           rect1.x + rect1.width - margin > rect2.x &&
+           rect1.y + margin < rect2.y + rect2.height &&
+           rect1.y + rect1.height - margin > rect2.y;
 }
 
 // Game over
@@ -109,8 +111,9 @@ function update() {
     whale.scale += (whale.targetScale - whale.scale) * 0.2;
     whale.rotation = Math.max(-30, Math.min(30, whale.velocityY * 3));
     
-    // Check boundaries
-    if (whale.y > canvas.height - whale.height || whale.y < 0) {
+    // Check boundaries with forgiving margins
+    const boundaryMargin = 3;
+    if (whale.y > canvas.height - whale.height + boundaryMargin || whale.y < -boundaryMargin) {
         gameOver();
         return;
     }
@@ -206,7 +209,24 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        restart(); // Click to restart on desktop too
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        restart();
+    }
+});
 
 // Game loop
 function gameLoop() {
