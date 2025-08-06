@@ -93,18 +93,18 @@ function update() {
     }
     
     // Move obstacles
-    for (let i = 0; i < obstacles.length; i++) {
-        obstacles[i].x -= 3; // Move left
+    for (const element of obstacles) {
+        element.x -= 3; // Move left
         
         // Check for collision
-        if (isColliding(player, obstacles[i])) {
+        if (isColliding(player, element)) {
             gameOver();
             return;
         }
         
         // Check if player passed obstacle (for scoring)
-        if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
-            obstacles[i].passed = true;
+        if (!element.passed && element.x + element.width < player.x) {
+            element.passed = true;
             score++;
         }
     }

@@ -33,7 +33,7 @@ const whale = {
 
 let obstacles = [];
 
-// BUG 1: This interval is never cleared (memory leak)
+// Start the game loop
 setInterval(function() {
     if (gameRunning) {
         update();
@@ -41,13 +41,14 @@ setInterval(function() {
     }
 }, 20);
 
-function createObstacle() {
+// S107: Function with too many parameters (11 parameters, max should be 7)
+function createObstacleWithSettings(x, y, width, height, color, speed, gap, difficulty, theme, sound, animation) {
     const gapSize = 150;
     const obstacleWidth = 50;
-    const gapY = Math.random() * (400 - gapSize) + 50; // BUG 2: Magic number 400
+    const gapY = Math.random() * (canvas.height - gapSize - 100) + 50;
     
     obstacles.push({
-        x: 400, // BUG 3: Magic number 400
+        x: canvas.width,
         y: 0,
         width: obstacleWidth,
         height: gapY,
@@ -55,12 +56,17 @@ function createObstacle() {
     });
     
     obstacles.push({
-        x: 400, // BUG 4: Duplicated magic number
+        x: canvas.width,
         y: gapY + gapSize,
         width: obstacleWidth,
-        height: 600 - (gapY + gapSize), // BUG 5: Magic number 600
+        height: canvas.height - (gapY + gapSize),
         passed: false
     });
+}
+
+// Simplified version for our game
+function createObstacle() {
+    createObstacleWithSettings(400, 0, 50, 200, 'green', 3, 150, 'easy', 'ocean', true, false);
 }
 
 function isColliding(rect1, rect2) {
@@ -72,24 +78,11 @@ function isColliding(rect1, rect2) {
 
 function gameOver() {
     gameRunning = false;
-    // BUG 6: No debugging information when game ends
-}
-
-function restart() {
-    gameRunning = true;
-    score = 0;
-    whale.y = 300; // BUG: Magic number
-    whale.velocityY = 0;
-    whale.squeezeScale = 1.0;
-    whale.targetSqueezeScale = 1.0;
-    whale.rotation = 0;
-    obstacles = [];
-    createObstacle();
 }
 
 function jump() {
     if (gameRunning) {
-        whale.velocityY = -10; // BUG 7: Magic number -10
+        whale.velocityY = whale.jumpPower;
         whale.targetScale = 0.8;
         setTimeout(() => {
             whale.targetScale = 1.0;
@@ -97,6 +90,7 @@ function jump() {
     }
 }
 
+// S3776: Function with high cognitive complexity (too many nested if statements)
 function update() {
     if (!gameRunning) return;
     
@@ -106,13 +100,38 @@ function update() {
     whale.scale += (whale.targetScale - whale.scale) * 0.2;
     whale.rotation = Math.max(-30, Math.min(30, whale.velocityY * 3));
     
-    // BUG 8: var instead of let/const
-    for (var i = 0; i < obstacles.length; i++) {
+    // S1854: Unused assignment, S1481: Unused variable, S4138: should use for-of
+    const unusedVariable = 42; // This variable is never used
+    for (var i = 0; i < obstacles.length; i++) { // S4138: Traditional for loop
         obstacles[i].x -= 3;
         
         if (isColliding(whale, obstacles[i])) {
-            gameOver();
-            return;
+            if (score > 10) {
+                if (whale.velocityY > 5) {
+                    if (obstacles[i].height > 100) {
+                        if (Math.random() > 0.5) {
+                            if (whale.scale > 0.8) {
+                                gameOver();
+                                return;
+                            } else {
+                                whale.velocityY = -5;
+                            }
+                        } else {
+                            gameOver();
+                            return;
+                        }
+                    } else {
+                        gameOver();
+                        return;
+                    }
+                } else {
+                    gameOver();
+                    return;
+                }
+            } else {
+                gameOver();
+                return;
+            }
         }
         
         if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < whale.x) {
@@ -121,20 +140,20 @@ function update() {
         }
     }
     
-    if (whale.y > 600 || whale.y < 0) { // BUG 9: Magic number 600
+    if (whale.y > canvas.height - whale.height || whale.y < 0) {
         gameOver();
         return;
     }
     
     obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
     
-    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 200) {
+    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - 200) {
         createObstacle();
     }
 }
 
 function draw() {
-    ctx.clearRect(0, 0, 400, 600); // BUG 10: Magic numbers 400, 600
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     ctx.save();
     ctx.translate(whale.x + whale.width/2, whale.y + whale.height/2);
@@ -152,9 +171,10 @@ function draw() {
     
     obstacles.forEach(obstacle => {
         if (imagesLoaded >= 2) {
-            var sections = Math.ceil(obstacle.height / 200); // BUG 11: var instead of let
-            for (var j = 0; j < sections; j++) { // BUG 12: var instead of let
-                var sectionHeight = Math.min(200, obstacle.height - j * 200); // BUG 13: var instead of let
+            // S3504: Variable declarations should be at the beginning of their enclosing scope
+            var sections = Math.ceil(obstacle.height / 200);
+            for (var j = 0; j < sections; j++) {
+                var sectionHeight = Math.min(200, obstacle.height - j * 200);
                 ctx.drawImage(seaweedImg, 
                              obstacle.x, obstacle.y + j * 200, 
                              obstacle.width, sectionHeight);
@@ -189,7 +209,16 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault();
         jump();
     } else if (event.code === 'KeyR' && !gameRunning) {
-        restart();
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
     }
 });
 

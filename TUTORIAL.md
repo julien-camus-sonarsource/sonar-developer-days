@@ -421,18 +421,18 @@ function update() {
     }
     
     // Move obstacles
-    for (let i = 0; i < obstacles.length; i++) {
-        obstacles[i].x -= 3; // Move left
+    for (const obstacle of obstacles) {
+        obstacle.x -= 3; // Move left
         
         // Check for collision
-        if (isColliding(player, obstacles[i])) {
+        if (isColliding(player, obstacle)) {
             gameOver();
             return;
         }
         
         // Check if player passed obstacle (for scoring)
-        if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
-            obstacles[i].passed = true;
+        if (!obstacle.passed && obstacle.x + obstacle.width < player.x) {
+            obstacle.passed = true;
             score++;
         }
     }
@@ -510,7 +510,8 @@ draw();
 ### 🤔 What Just Happened?
 
 - **Arrays** (`obstacles = []`) store lists of things
-- **Loops** (`for` loop) do the same thing to many objects
+- **Modern Loops** (`for...of` loop) iterate through collections cleanly
+- **Array Methods** (`forEach`) apply functions to each array element
 - **Collision Detection** checks if two rectangles overlap
 - **Game States** (`gameRunning`) control when the game should stop
 - **Scoring** tracks how many obstacles you've passed
@@ -890,7 +891,7 @@ const whale = {
 
 let obstacles = [];
 
-// BUG 1: This interval is never cleared (memory leak)
+// Start the game loop
 setInterval(function() {
     if (gameRunning) {
         update();
@@ -898,13 +899,14 @@ setInterval(function() {
     }
 }, 20);
 
-function createObstacle() {
+// S107: Function with too many parameters (11 parameters, max should be 7)
+function createObstacleWithSettings(x, y, width, height, color, speed, gap, difficulty, theme, sound, animation) {
     const gapSize = 150;
     const obstacleWidth = 50;
-    const gapY = Math.random() * (400 - gapSize) + 50; // BUG 2: Magic number 400
+    const gapY = Math.random() * (canvas.height - gapSize - 100) + 50;
     
     obstacles.push({
-        x: 400, // BUG 3: Magic number 400
+        x: canvas.width,
         y: 0,
         width: obstacleWidth,
         height: gapY,
@@ -912,12 +914,17 @@ function createObstacle() {
     });
     
     obstacles.push({
-        x: 400, // BUG 4: Duplicated magic number
+        x: canvas.width,
         y: gapY + gapSize,
         width: obstacleWidth,
-        height: 600 - (gapY + gapSize), // BUG 5: Magic number 600
+        height: canvas.height - (gapY + gapSize),
         passed: false
     });
+}
+
+// Simplified version for our game
+function createObstacle() {
+    createObstacleWithSettings(400, 0, 50, 200, 'green', 3, 150, 'easy', 'ocean', true, false);
 }
 
 function isColliding(rect1, rect2) {
@@ -929,12 +936,11 @@ function isColliding(rect1, rect2) {
 
 function gameOver() {
     gameRunning = false;
-    // BUG 6: No debugging information when game ends
 }
 
 function jump() {
     if (gameRunning) {
-        whale.velocityY = -10; // BUG 7: Magic number -10
+        whale.velocityY = whale.jumpPower;
         whale.targetScale = 0.8;
         setTimeout(() => {
             whale.targetScale = 1.0;
@@ -942,6 +948,7 @@ function jump() {
     }
 }
 
+// S3776: Function with high cognitive complexity (too many nested if statements)
 function update() {
     if (!gameRunning) return;
     
@@ -951,13 +958,38 @@ function update() {
     whale.scale += (whale.targetScale - whale.scale) * 0.2;
     whale.rotation = Math.max(-30, Math.min(30, whale.velocityY * 3));
     
-    // BUG 8: var instead of let/const
-    for (var i = 0; i < obstacles.length; i++) {
+    // S1854: Unused assignment, S1481: Unused variable, S4138: should use for-of
+    const unusedVariable = 42; // This variable is never used
+    for (var i = 0; i < obstacles.length; i++) { // S4138: Traditional for loop
         obstacles[i].x -= 3;
         
         if (isColliding(whale, obstacles[i])) {
-            gameOver();
-            return;
+            if (score > 10) {
+                if (whale.velocityY > 5) {
+                    if (obstacles[i].height > 100) {
+                        if (Math.random() > 0.5) {
+                            if (whale.scale > 0.8) {
+                                gameOver();
+                                return;
+                            } else {
+                                whale.velocityY = -5;
+                            }
+                        } else {
+                            gameOver();
+                            return;
+                        }
+                    } else {
+                        gameOver();
+                        return;
+                    }
+                } else {
+                    gameOver();
+                    return;
+                }
+            } else {
+                gameOver();
+                return;
+            }
         }
         
         if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < whale.x) {
@@ -966,20 +998,20 @@ function update() {
         }
     }
     
-    if (whale.y > 600 || whale.y < 0) { // BUG 9: Magic number 600
+    if (whale.y > canvas.height - whale.height || whale.y < 0) {
         gameOver();
         return;
     }
     
     obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
     
-    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 200) {
+    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - 200) {
         createObstacle();
     }
 }
 
 function draw() {
-    ctx.clearRect(0, 0, 400, 600); // BUG 10: Magic numbers 400, 600
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     ctx.save();
     ctx.translate(whale.x + whale.width/2, whale.y + whale.height/2);
@@ -997,9 +1029,10 @@ function draw() {
     
     obstacles.forEach(obstacle => {
         if (imagesLoaded >= 2) {
-            var sections = Math.ceil(obstacle.height / 200); // BUG 11: var instead of let
-            for (var j = 0; j < sections; j++) { // BUG 12: var instead of let
-                var sectionHeight = Math.min(200, obstacle.height - j * 200); // BUG 13: var instead of let
+            // S3504: Variable declarations should be at the beginning of their enclosing scope
+            var sections = Math.ceil(obstacle.height / 200);
+            for (var j = 0; j < sections; j++) {
+                var sectionHeight = Math.min(200, obstacle.height - j * 200);
                 ctx.drawImage(seaweedImg, 
                              obstacle.x, obstacle.y + j * 200, 
                              obstacle.width, sectionHeight);
@@ -1033,6 +1066,17 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
     }
 });
 
@@ -1070,13 +1114,32 @@ Remember the **SonarQube for IDE extension** we installed at the beginning? Now 
    - No need to run separate tools or wait for builds
    - Issues appear and disappear instantly as you fix them
 
-### Common Issues SonarLint Will Find:
+7. **Visual Indicators to Look For**:
+   - **Red squiggly underlines** 🔴: Security hotspots and critical bugs
+   - **Yellow/orange underlines** 🟡: Code smells and maintainability issues
+   - **Lightbulb icons** 💡: Quick fixes available
+   - **Problem count in status bar**: Shows total issues in current file
+   - **Scrollbar annotations**: Colored marks showing issue locations
 
-1. **S2095 - Unclosed Resource**: The `setInterval` creates a timer that's never cleaned up
-2. **S4334 - var Keyword**: Should use `let` or `const` instead of `var`
-3. **S109 - Magic Numbers**: Hard-coded numbers should be named constants
-4. **S1192 - Duplicated Literals**: Same values repeated multiple times
-5. **S106 - Missing Logging**: No debugging information
+### Issues SonarQube for IDE Will Detect:
+
+Looking at our problematic code, SonarQube for IDE detects exactly these issues:
+
+#### 🐛 **Code Smells & Maintainability Issues:**
+
+1. **S3776 - Cognitive Complexity**: Function has too many nested if statements (line 94)
+2. **S107 - Too Many Parameters**: Function has 11 parameters, max should be 7 (line 45) 
+3. **S1172 - Unused Parameters**: 11 function parameters that are never used (line 45)
+4. **S1854 - Unused Assignments**: Variables assigned but never read (line 104)
+5. **S1481 - Unused Local Variables**: Variables declared but never used (line 104)
+6. **S2870 - Variable Declarations**: Should use `let`/`const` instead of `var` (lines 105, 175-177)
+7. **S4138 - For-of Loop Preferred**: Traditional for-loop should use for-of (line 105)
+
+#### 📊 **What You'll See in VS Code:**
+- **Yellow squiggly underlines**: All these are code smell issues
+- **Problems panel**: Shows 15+ issues detected (11 unused parameters + multiple var declarations)
+- **Rule codes**: Each issue shows the specific SonarQube rule ID (S3776, S107, etc.)
+- **Hover tooltips**: Detailed explanations of why each issue matters and how to fix them
 
 ### Let's Fix These Issues:
 
@@ -1086,14 +1149,6 @@ Create a new file called `game-fixed.js`:
 // Get the canvas and drawing tools
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-
-// FIXED: Define constants instead of magic numbers
-const CANVAS_WIDTH = 400;
-const CANVAS_HEIGHT = 600;
-const JUMP_POWER = -10;
-const OBSTACLE_SPEED = 3;
-const GAP_SIZE = 150;
-const OBSTACLE_WIDTH = 50;
 
 // Load images
 const whaleImg = new Image();
@@ -1109,7 +1164,6 @@ seaweedImg.onload = () => { imagesLoaded++; };
 // Game state
 let gameRunning = true;
 let score = 0;
-let gameLoop = null; // FIXED: Store interval reference
 
 // Our whale player
 const whale = {
@@ -1119,7 +1173,7 @@ const whale = {
     height: 30,
     velocityY: 0,
     gravity: 0.5,
-    jumpPower: JUMP_POWER, // FIXED: Use constant
+    jumpPower: -10,
     scale: 1.0,
     targetScale: 1.0,
     rotation: 0
@@ -1127,40 +1181,37 @@ const whale = {
 
 let obstacles = [];
 
-// FIXED: Function to start game loop that can be stopped
-function startGameLoop() {
-    gameLoop = setInterval(function() {
-        if (gameRunning) {
-            update();
-            draw();
-        }
-    }, 20);
-}
-
-// FIXED: Function to stop game loop
-function stopGameLoop() {
-    if (gameLoop) {
-        clearInterval(gameLoop);
-        gameLoop = null;
+// Start the game loop
+setInterval(function() {
+    if (gameRunning) {
+        update();
+        draw();
     }
-}
+}, 20);
 
-function createObstacle() {
-    const gapY = Math.random() * (CANVAS_HEIGHT - GAP_SIZE - 100) + 50; // FIXED: Use constant
+// FIXED: S107 - Simplified function with configuration object
+function createObstacle(config = {}) {
+    const settings = {
+        gapSize: 150,
+        obstacleWidth: 50,
+        ...config
+    };
+    
+    const gapY = Math.random() * (canvas.height - settings.gapSize - 100) + 50;
     
     obstacles.push({
-        x: CANVAS_WIDTH,  // FIXED: Use constant
+        x: canvas.width,
         y: 0,
-        width: OBSTACLE_WIDTH,
+        width: settings.obstacleWidth,
         height: gapY,
         passed: false
     });
     
     obstacles.push({
-        x: CANVAS_WIDTH,  // FIXED: Use constant
-        y: gapY + GAP_SIZE,
-        width: OBSTACLE_WIDTH,
-        height: CANVAS_HEIGHT - (gapY + GAP_SIZE), // FIXED: Use constant
+        x: canvas.width,
+        y: gapY + settings.gapSize,
+        width: settings.obstacleWidth,
+        height: canvas.height - (gapY + settings.gapSize),
         passed: false
     });
 }
@@ -1173,14 +1224,12 @@ function isColliding(rect1, rect2) {
 }
 
 function gameOver() {
-    console.log('Game Over! Final score:', score); // FIXED: Add debugging
     gameRunning = false;
-    stopGameLoop(); // FIXED: Clean up resources
 }
 
 function jump() {
     if (gameRunning) {
-        whale.velocityY = JUMP_POWER; // FIXED: Use constant
+        whale.velocityY = whale.jumpPower;
         whale.targetScale = 0.8;
         setTimeout(() => {
             whale.targetScale = 1.0;
@@ -1188,6 +1237,7 @@ function jump() {
     }
 }
 
+// FIXED: S3776 - Simplified cognitive complexity with early returns
 function update() {
     if (!gameRunning) return;
     
@@ -1197,10 +1247,11 @@ function update() {
     whale.scale += (whale.targetScale - whale.scale) * 0.2;
     whale.rotation = Math.max(-30, Math.min(30, whale.velocityY * 3));
     
-    // FIXED: Use const instead of var
+    // FIXED: S4138, S2870 - Use for-of loop and proper variable declarations
     for (const obstacle of obstacles) {
-        obstacle.x -= OBSTACLE_SPEED; // FIXED: Use constant
+        obstacle.x -= 3;
         
+        // FIXED: S3776 - Simplified collision logic
         if (isColliding(whale, obstacle)) {
             gameOver();
             return;
@@ -1212,20 +1263,20 @@ function update() {
         }
     }
     
-    if (whale.y > CANVAS_HEIGHT - whale.height || whale.y < 0) { // FIXED: Use constant
+    if (whale.y > canvas.height - whale.height || whale.y < 0) {
         gameOver();
         return;
     }
     
     obstacles = obstacles.filter(obstacle => obstacle.x > -obstacle.width);
     
-    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < 200) {
+    if (obstacles.length === 0 || obstacles[obstacles.length - 1].x < canvas.width - 200) {
         createObstacle();
     }
 }
 
 function draw() {
-    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT); // FIXED: Use constants
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     ctx.save();
     ctx.translate(whale.x + whale.width/2, whale.y + whale.height/2);
@@ -1243,9 +1294,10 @@ function draw() {
     
     obstacles.forEach(obstacle => {
         if (imagesLoaded >= 2) {
-            const sections = Math.ceil(obstacle.height / 200); // FIXED: Use const
-            for (let j = 0; j < sections; j++) { // FIXED: Use let
-                const sectionHeight = Math.min(200, obstacle.height - j * 200); // FIXED: Use const
+            // FIXED: S2870 - Use const/let instead of var
+            const sections = Math.ceil(obstacle.height / 200);
+            for (let j = 0; j < sections; j++) {
+                const sectionHeight = Math.min(200, obstacle.height - j * 200);
                 ctx.drawImage(seaweedImg, 
                              obstacle.x, obstacle.y + j * 200, 
                              obstacle.width, sectionHeight);
@@ -1279,13 +1331,22 @@ document.addEventListener('keydown', function(event) {
     if (event.code === 'Space') {
         event.preventDefault();
         jump();
+    } else if (event.code === 'KeyR' && !gameRunning) {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
     }
 });
 
 canvas.addEventListener('click', jump);
 
-// Start the game
-startGameLoop();
 createObstacle();
 ```
 
@@ -1306,19 +1367,25 @@ Change the script line in your `index.html`:
 
 ### 🤔 What We Fixed:
 
-1. **Memory Leaks**: Now we properly clean up timers
-2. **Magic Numbers**: Hard-coded values are now named constants
-3. **Variable Declarations**: Used `const`/`let` instead of `var`
-4. **Debugging**: Added console logging for troubleshooting
-5. **Code Duplication**: Constants prevent repeating values
+#### 🐛 **Code Quality & Maintainability Issues:**
+
+1. **S3776 - Cognitive Complexity**: Simplified nested if statements by removing complex collision logic
+2. **S107 - Too Many Parameters**: Refactored function to use configuration object with defaults
+3. **S1172 - Unused Parameters**: Removed the overly complex function with unused parameters
+4. **S1854/S1481 - Unused Variables**: Removed unused variable declarations  
+5. **S2870 - Variable Declarations**: Replaced `var` with `let`/`const` for proper scoping
+6. **S4138 - Loop Optimization**: Used `for...of` loops instead of traditional index-based for-loops
+7. **General Code Quality**: Improved readability, maintainability, and followed modern JavaScript practices
 
 ### 💡 Why This Matters:
 
-- **Maintainability**: Easy to change game speed, size, etc.
-- **Debugging**: Console logs help find problems
-- **Performance**: No memory leaks
-- **Security**: Modern JavaScript practices
-- **Teamwork**: Other developers can understand your code
+- **Maintainability**: Simplified complex logic makes code easier to modify and extend
+- **Readability**: Proper variable scoping and cleaner loops improve code clarity
+- **Performance**: Optimized loops and no unused variables reduce memory usage
+- **Reliability**: Reduced cognitive complexity means fewer bugs and easier debugging
+- **Code Quality**: Following JavaScript best practices and modern standards
+- **Teamwork**: Clean, well-structured code that other developers can understand
+- **Professional Development**: These are the same issues you'll encounter in real projects
 
 ---
 

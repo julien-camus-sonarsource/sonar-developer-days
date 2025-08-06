@@ -64,16 +64,16 @@
         <div class="controls">Press SPACE or click to flap your whale! Press R to restart when game over.</div>
         <div class="warning">
             ⚠️ <strong>This code has intentional issues!</strong><br>
-            Open game.js in VS Code and check the Problems panel to see SonarLint warnings.
+            Open game.js in VS Code and check the Problems panel to see SonarQube for IDE warnings.
         </div>
         <div class="info">
-            <p>✅ Game works, but the code has problems that SonarLint will detect:</p>
+            <p>✅ Game works, but the code has problems that SonarQube for IDE will detect:</p>
             <ul style="text-align: left; display: inline-block;">
-                <li>Memory leaks (unclosed intervals)</li>
-                <li>Magic numbers</li>
-                <li>Deprecated var declarations</li>
-                <li>Missing debug logging</li>
-                <li>Code duplication</li>
+                <li>High cognitive complexity (too many nested if statements)</li>
+                <li>Functions with too many parameters (11 parameters)</li>
+                <li>Unused parameters and variables</li>
+                <li>Deprecated var declarations (use let/const instead)</li>
+                <li>Traditional for-loops (should use for-of)</li>
             </ul>
         </div>
     </div>
