@@ -21,7 +21,37 @@ Welcome! Today you'll learn how to create a fun browser game from scratch. Don't
 ### What You Need:
 1. **Visual Studio Code** (VS Code) - A free code editor
 2. **Web Browser** - Chrome, Firefox, Safari, or Edge
-3. **Basic text editing skills** - Copy, paste, save files
+3. **Git** - For version control and checkpoints
+4. **Basic text editing skills** - Copy, paste, save files
+
+### Git Setup & Your Workspace:
+
+#### 1. Create Your Personal Branch:
+```bash
+# Clone the workshop repository (instructor will provide URL)
+git clone [workshop-repo-url]
+cd sonar-developer-days
+
+# Create your personal workspace - use your name!
+git checkout -b my-implementation-[yourname]
+# Example: git checkout -b my-implementation-john
+```
+
+#### 2. Checkpoint System:
+If you get stuck or want to see a working solution:
+
+```bash
+# See the solution for step 3:
+git checkout step-3
+# Look at the files, then go back to your work:
+git checkout my-implementation-[yourname]
+
+# Start fresh from a checkpoint:
+git checkout step-5
+git checkout -b my-work-from-step5
+```
+
+**Available checkpoints:** `step-1`, `step-2`, `step-3`, `step-4`, `step-5`, `step-6`, `step-7`, `final`
 
 ### VS Code Extensions Setup:
 
@@ -47,6 +77,26 @@ Once we create HTML files, you can:
 2. Select **"Preview"** from the context menu
 3. This opens a **live preview** in a right-side panel
 4. **Split screen**: Code on left, preview on right - perfect for development!
+
+### 🆘 Need Help?
+At any point during the workshop:
+
+**Stuck and want to see the solution?**
+```bash
+git checkout step-3  # See step 3 solution
+git checkout my-implementation-[yourname]  # Back to your work
+```
+
+**Want to start fresh from a working checkpoint?**
+```bash
+git checkout step-2  # Start from step 2 solution
+git checkout -b my-retry-from-step2  # New branch for fresh start
+```
+
+**See all available branches:**
+```bash
+git branch -a  # Shows: step-1, step-2, step-3... final
+```
 
 ---
 
