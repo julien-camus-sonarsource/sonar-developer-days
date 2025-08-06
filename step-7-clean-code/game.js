@@ -238,7 +238,24 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        restart(); // Click to restart on desktop too
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        restart();
+    }
+});
 
 // Start the game
 startGameLoop();
