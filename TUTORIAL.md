@@ -527,26 +527,13 @@ draw();
 
 Let's transform our simple rectangles into a beautiful whale game with better graphics!
 
-### Create Better Assets:
+### Use the Provided Assets:
 
-First, let's create a simple whale SVG. Create `whale.svg`:
+We'll use the beautiful SonarQube-themed SVG graphics that are already provided in the `assets/` folder of the project:
+- `assets/sonar-whale-light-bg.svg` - A professional Sonar-themed whale with the classic SonarQube colors
+- `assets/seaweed.svg` - Realistic seaweed obstacles for our ocean environment
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
-  <ellipse cx="30" cy="20" rx="25" ry="15" fill="#4E9BCD" stroke="#2E5F8F" stroke-width="2"/>
-  <circle cx="35" cy="15" r="3" fill="white"/>
-  <circle cx="36" cy="14" r="1.5" fill="black"/>
-  <ellipse cx="50" cy="20" rx="8" ry="12" fill="#4E9BCD"/>
-</svg>
-```
-
-Create `seaweed.svg`:
-
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 200">
-  <path d="M10 0 Q20 30 15 60 Q25 90 10 120 Q20 150 15 180 Q25 200 20 200 L30 200 Q20 170 25 150 Q15 120 30 90 Q20 60 25 30 Q15 0 10 0" fill="#228B22"/>
-</svg>
-```
+These assets are already optimized and branded - no need to create new files!
 
 ### Update Your HTML for Ocean Theme:
 
@@ -607,8 +594,8 @@ const seaweedImg = new Image();
 let imagesLoaded = 0;
 
 // Load SVG files
-whaleImg.src = 'whale.svg';
-seaweedImg.src = 'seaweed.svg';
+whaleImg.src = '../assets/sonar-whale-light-bg.svg';
+seaweedImg.src = '../assets/seaweed.svg';
 
 whaleImg.onload = () => { imagesLoaded++; };
 seaweedImg.onload = () => { imagesLoaded++; };
@@ -865,8 +852,8 @@ const whaleImg = new Image();
 const seaweedImg = new Image();
 let imagesLoaded = 0;
 
-whaleImg.src = 'whale.svg';
-seaweedImg.src = 'seaweed.svg';
+whaleImg.src = '../assets/sonar-whale-light-bg.svg';
+seaweedImg.src = '../assets/seaweed.svg';
 
 whaleImg.onload = () => { imagesLoaded++; };
 seaweedImg.onload = () => { imagesLoaded++; };
@@ -1155,8 +1142,8 @@ const whaleImg = new Image();
 const seaweedImg = new Image();
 let imagesLoaded = 0;
 
-whaleImg.src = 'whale.svg';
-seaweedImg.src = 'seaweed.svg';
+whaleImg.src = '../assets/sonar-whale-light-bg.svg';
+seaweedImg.src = '../assets/seaweed.svg';
 
 whaleImg.onload = () => { imagesLoaded++; };
 seaweedImg.onload = () => { imagesLoaded++; };
@@ -1409,8 +1396,7 @@ Let's make your game available to the world using GitHub Pages!
    - Drag and drop all your files:
      - `index.html`
      - `game-fixed.js`
-     - `whale.svg`
-     - `seaweed.svg`
+     - The entire `assets/` folder with the SVG files
    - Scroll down, add commit message: "Initial game upload"
    - Click "Commit changes"
 
@@ -1495,13 +1481,13 @@ function jump() {
 ### Advanced Customizations:
 
 #### Create Your Own Character:
-1. Draw a simple SVG in any vector editor
-2. Replace `whale.svg` with your drawing
+1. Draw a simple SVG in any vector editor  
+2. Replace `assets/sonar-whale-light-bg.svg` with your drawing
 3. Adjust size in the whale object
 
 #### Different Obstacles:
 1. Create new SVG obstacles
-2. Replace seaweed.svg
+2. Replace `assets/seaweed.svg` 
 3. Maybe add variety with multiple obstacle types
 
 #### Power-ups:

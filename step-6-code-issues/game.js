@@ -7,8 +7,8 @@ const whaleImg = new Image();
 const seaweedImg = new Image();
 let imagesLoaded = 0;
 
-whaleImg.src = 'whale.svg';
-seaweedImg.src = 'seaweed.svg';
+whaleImg.src = '../assets/sonar-whale-light-bg.svg';
+seaweedImg.src = '../assets/seaweed.svg';
 
 whaleImg.onload = () => { imagesLoaded++; };
 seaweedImg.onload = () => { imagesLoaded++; };
