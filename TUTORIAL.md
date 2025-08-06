@@ -1376,51 +1376,47 @@ Change the script line in your `index.html`:
 
 ---
 
-## 🎯 Step 7: Publish Your Game Online (10 minutes)
+## 🎯 Step 7: Publish Your Game Online (5 minutes)
 
-Let's make your game available to the world using GitHub Pages!
+Let's make your game available to the world instantly!
 
-### Option 1: GitHub Pages (Recommended)
+### Option 1: Netlify Drop (Quick & Easy!)
 
-1. **Create a GitHub Account**: Go to github.com and sign up
+1. **Go to Netlify Drop**: Visit [drop.netlify.com](https://drop.netlify.com)
 
-2. **Create a New Repository**:
-   - Click "New repository"
-   - Name it: `flappy-whale-game`
-   - Check "Add a README file"
-   - Make it Public
-   - Click "Create repository"
+2. **Drag Your Entire Project Folder**:
+   - Take your whole `sonar-developer-days` folder
+   - Drag and drop it onto the Netlify Drop zone
+   - Wait for upload to complete (usually 10-30 seconds)
 
-3. **Upload Your Files**:
-   - Click "uploading an existing file"
-   - Drag and drop all your files:
-     - `index.html`
-     - `game-fixed.js`
-     - The entire `assets/` folder with the SVG files
-   - Scroll down, add commit message: "Initial game upload"
-   - Click "Commit changes"
+3. **Get Your Live URL**:
+   - Netlify will give you a URL like: `https://inspiring-cupcake-123456.netlify.app`
+   - **Important**: To see your game, add the path: `/step-7-clean-code/`
+   - **Your Game URL**: `https://your-url.netlify.app/step-7-clean-code/`
 
-4. **Enable GitHub Pages**:
-   - Go to repository Settings
-   - Scroll to "Pages" section
-   - Source: "Deploy from a branch"
-   - Branch: "main"
-   - Click "Save"
+4. **Share Your Game**: Copy the full URL and share it with everyone!
 
-5. **Your Game URL**:
-   - Wait 2-3 minutes
-   - Your game will be at: `https://yourusername.github.io/flappy-whale-game`
+### Option 2: Surge.sh (Long-term Alternative)
 
-### Option 2: Netlify (Alternative)
+If you want a custom name for your game URL:
 
-1. **Go to netlify.com** and sign up
-2. **Drag your project folder** to Netlify's deploy area
-3. **Get instant URL** - your game is live immediately!
+1. **Install Surge** (one-time setup):
+   - Open your terminal/command prompt
+   - Run: `npm install --global surge`
+
+2. **Deploy Your Game**:
+   - Navigate to your `step-7-clean-code` folder
+   - Run: `surge`
+   - Choose a custom domain like: `your-name-whale-game.surge.sh`
+   - **⚠️ Important**: Use a unique name like `john-whale-game-2024.surge.sh` so other workshop participants don't override your game!
+
+3. **Your Game URL**: `https://your-unique-name.surge.sh`
 
 ### 🧪 Test Your Published Game:
 1. Visit your game URL
-2. Share it with friends and family!
-3. Play it on your phone
+2. Make sure the whale graphics load properly  
+3. Test the game controls (spacebar/click)
+4. Share the link with others!
 
 ### 🎉 Congratulations!
 You've created and published your first web game!
