@@ -79,21 +79,26 @@ Welcome to an exciting journey where you'll **build a complete web game from scr
 
 ## 📁 Workshop Structure
 
-### **Complete Step-by-Step Examples:**
+### **Git Branch Organization:**
 ```
 📂 sonar-developer-days/
 ├── 📄 TUTORIAL.md              # Complete 90-minute tutorial
-├── 📄 STEP-BY-STEP-README.md   # Folder structure guide
-├── 📁 step-1-basic-webpage/    # HTML foundation
-├── 📁 step-2-moving-square/    # JavaScript basics  
-├── 📁 step-3-gravity-jumping/  # Physics simulation
-├── 📁 step-4-obstacles-collision/ # Full game mechanics
-├── 📁 step-5-beautiful-graphics/  # Polish and animations
-├── 📁 step-6-code-issues/      # Intentional code problems
-└── 📁 step-7-clean-code/       # Professional-quality code
+├── 📄 README.md                # This overview  
+├── 📄 STEP-BY-STEP-README.md   # Branch structure guide
+│
+📋 Git Branches:
+├── 🌟 main                     # Clean starting point (tutorial only)
+├── 🎯 step-1                   # HTML foundation checkpoint
+├── 🎯 step-2                   # JavaScript basics checkpoint
+├── 🎯 step-3                   # Physics simulation checkpoint  
+├── 🎯 step-4                   # Full game mechanics checkpoint
+├── 🎯 step-5                   # Beautiful graphics checkpoint
+├── 🎯 step-6                   # Code issues demo checkpoint
+├── 🎯 step-7                   # Clean code checkpoint
+└── 🏆 final                    # Complete implementation
 ```
 
-**Each folder contains a working game** - perfect for catching up or comparing progress!
+**Each branch contains working code** - perfect for catching up or starting fresh at any step!
 
 ---
 
@@ -159,19 +164,38 @@ function gameOver() {
 
 ## 🚀 Getting Started
 
+### **Workshop Setup:**
+```bash
+# 1. Clone the repository
+git clone [workshop-repo-url]
+cd sonar-developer-days
+
+# 2. Create your personal workspace  
+git checkout -b my-implementation-[yourname]
+
+# 3. Follow TUTORIAL.md step by step!
+```
+
 ### **Option 1: Follow the Complete Tutorial**
 Open [**TUTORIAL.md**](TUTORIAL.md) for the full 90-minute guided experience
 
-### **Option 2: Jump to Any Step**  
-Each `step-X-*/` folder contains working code - perfect for:
-- **Catching up** if you fall behind
-- **Comparing** your implementation  
-- **Exploring** advanced concepts
-- **Debugging** issues
+### **Option 2: Jump to Any Checkpoint**
+```bash
+git checkout step-4  # See step 4 solution
+git checkout -b my-work-from-step4  # Start fresh from step 4
+```
 
 ### **Option 3: Quick Demo**
-1. Open any `step-X-*/index.html` in your browser
-2. See the progression from basic webpage to complete game!
+```bash
+git checkout final  # Complete implementation
+# Open step-7-clean-code/index.html in browser
+```
+
+### **Need Help?**
+```bash
+git checkout step-3  # See step 3 solution
+git checkout my-implementation-[yourname]  # Back to your work
+```
 
 ---
 
@@ -185,7 +209,11 @@ The completed game features:
 - **Score tracking** and game over states
 - **Debug mode** (press 'D') for development insight
 
-**Try it yourself:** Open `step-7-clean-code/index.html`
+**Try it yourself:** 
+```bash
+git checkout final
+# Open step-7-clean-code/index.html in browser
+```
 
 ---
 
