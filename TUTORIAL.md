@@ -522,7 +522,7 @@ function draw() {
         ctx.font = '36px Arial';
         ctx.fillText('GAME OVER', canvas.width/2 - 100, canvas.height/2);
         ctx.font = '18px Arial';
-        ctx.fillText('Press R to restart', canvas.width/2 - 70, canvas.height/2 + 40);
+        ctx.fillText('Press R or tap to restart', canvas.width/2 - 70, canvas.height/2 + 40);
     }
 }
 
@@ -536,7 +536,24 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump/restart
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        restart(); // Click to restart too
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        restart();
+    }
+});
 
 // Game loop
 function gameLoop() {
@@ -827,7 +844,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R or tap to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -842,7 +859,24 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump/restart
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        restart(); // Click to restart too
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        restart();
+    }
+});
 
 // Game loop
 function gameLoop() {
@@ -1097,7 +1131,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R or tap to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -1120,7 +1154,42 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump/restart
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
+    }
+});
 
 createObstacle();
 ```
@@ -1362,7 +1431,7 @@ function draw() {
         ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 20);
         ctx.font = '18px Arial';
         ctx.fillText('Score: ' + score, canvas.width/2, canvas.height/2 + 20);
-        ctx.fillText('Press R to restart', canvas.width/2, canvas.height/2 + 50);
+        ctx.fillText('Press R or tap to restart', canvas.width/2, canvas.height/2 + 50);
         ctx.textAlign = 'left';
     }
 }
@@ -1385,7 +1454,42 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-canvas.addEventListener('click', jump);
+// Desktop: Click to jump/restart
+canvas.addEventListener('click', function(event) {
+    if (gameRunning) {
+        jump();
+    } else {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
+    }
+});
+
+// Mobile: Touch to jump/restart
+canvas.addEventListener('touchstart', function(event) {
+    event.preventDefault(); // Prevent zoom and scroll
+    if (gameRunning) {
+        jump();
+    } else {
+        // Restart game
+        gameRunning = true;
+        score = 0;
+        whale.y = 300;
+        whale.velocityY = 0;
+        whale.scale = 1.0;
+        whale.targetScale = 1.0;
+        whale.rotation = 0;
+        obstacles = [];
+        createObstacle();
+    }
+});
 
 createObstacle();
 ```
@@ -1435,20 +1539,25 @@ Change the script line in your `index.html`:
 
 Let's make your game available to the world instantly!
 
-### Option 1: Netlify Drop (Quick & Easy!)
+### Option 1: Netlify Drop (Recommended!)
 
 1. **Go to Netlify Drop**: Visit [drop.netlify.com](https://drop.netlify.com)
 
-2. **Drag Your Entire Project Folder**:
+2. **Create Free Account (Recommended)**:
+   - Click "Sign up" for a free Netlify account
+   - This allows multiple deployments and easier updates
+   - Without an account, you can only use Netlify Drop once per day
+
+3. **Drag Your Entire Project Folder**:
    - Take your whole `sonar-developer-days` folder
    - Drag and drop it onto the Netlify Drop zone
    - Wait for upload to complete (usually 10-30 seconds)
 
-3. **Get Your Live URL**:
+4. **Get Your Live URL**:
    - Netlify will give you a URL like: `https://inspiring-cupcake-123456.netlify.app`
    - **Your Game URL**: `https://your-url.netlify.app/`
 
-4. **Share Your Game**: Copy the full URL and share it with everyone!
+5. **Share Your Game**: Copy the full URL and share it with everyone!
 
 ### Option 2: Surge.sh (Long-term Alternative)
 
